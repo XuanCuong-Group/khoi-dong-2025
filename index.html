@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khởi động 2025</title>
+    <link href="https://fonts.cdnfonts.com/css/ethnocentric" rel="stylesheet">
+
+    <style>
+        .main {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo img {
+            width: 230px;
+            margin-top: 80px;
+        }
+
+        .content .slogan img {
+            margin-top: 90px;
+            max-width: 1500px;
+        }
+
+        .content-title {
+            display: none;
+            animation: scale-up 2s forwards;
+        }
+
+        .earth {
+            text-align: center;
+            display: none;
+            animation: scale-up 2s forwards;
+            transition: all .5s ease-in-out;
+        }
+
+        .earth img {
+            width: 1100px;
+        }
+
+        .bar-loading {
+            position: fixed;
+            bottom: 400px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #btn-click-me {
+            width: 200px;
+            font-size: 28px;
+            height: 70px;
+            background: linear-gradient(45deg, #009400, #68c800);
+            padding: 10px 20px;
+            color: #fff;
+            border: 1px solid #e5ea67;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(229, 234, 103, 0.7);
+            /* Màu shadow và độ mờ tại đây */
+            /* margin-right: 20px; */
+            margin-top: 30px;
+            font-family: 'Ethnocentric Rg', sans-serif;
+        }
+
+        #progress-container {
+            height: 80px;
+            width: 950px;
+            border: 1px solid #e5ea67;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(229, 234, 103, 0.7);
+            /* Màu shadow và độ mờ tại đây */
+        }
+
+        #progress-bar {
+            width: 0;
+            height: 100%;
+            bottom: 0;
+            background: linear-gradient(to left, #68c800, #00ffe5);
+            ;
+            position: absolute;
+            transition: width 0.5s;
+        }
+
+        .percent {
+            position: absolute;
+            top: 23px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 26px;
+            color: #fff;
+            font-weight: normal;
+            font-family: 'Ethnocentric Rg', sans-serif;
+        }
+
+        .rotate {
+            animation: spin 30s linear infinite !important;
+        }
+
+        .move {
+            animation: mymove 5s;
+        }
+
+        @keyframes scale-up {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes mymove {
+            from {
+                top: 0px;
+            }
+
+            to {
+                top: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="content">
+            <div class="content-title">
+                <div class="logo">
+                    <!-- <img src="https://sconnect.com.vn/wp-content/uploads/2024/01/Logo_nguyen-ban_02.png" alt="logo"> -->
+                </div>
+                <div class="slogan">
+                    <!-- <img src="https://sconnect.com.vn/wp-content/uploads/2024/01/slogan-ko.png" alt="logo"> -->
+                </div>
+            </div>
+
+            <div class="earth">
+                <img src="https://sconnect.com.vn/wp-content/uploads/2024/01/trai-dat-1.png" alt="logo">
+            </div>
+        </div>
+        <div class="bar-loading">
+            <div id="progress-container">
+                <div id="progress-bar"></div>
+                <div class="percent"></div>
+            </div>
+            <button id="btn-click-me" onclick="startProgressBar()" style="z-index: 999">Charge</button>
+        </div>
+    </div>
+
+    <!-- <audio id="audio-1" preload="none" tabindex="0">
+        <source src="https://sconnect.com.vn/wp-content/uploads/2024/01/Nhac-1.mp3" />
+    </audio>
+    <audio id="audio-2" preload="none" tabindex="0">
+        <source
+            src="https://sconnect.com.vn/wp-content/uploads/2023/12/y2mate.com-CHO-EM-MOT-LAN-YEU-Hoang-Duyen-MELODI-Show-Tap-2_320kbps.mp3" />
+    </audio> -->
+
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
