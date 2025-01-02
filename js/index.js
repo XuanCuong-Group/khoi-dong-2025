@@ -6,7 +6,6 @@ function startProgressBar() {
     clickCount++;
     // audio1.play();
     const progressBar = document.getElementById('progress-bar');
-    const earth = document.querySelector('.earth');
     const title = document.querySelector('.content-title');
     let percent = document.querySelector('.percent');
 
@@ -20,25 +19,25 @@ function startProgressBar() {
         // audio1.pause();
 
         setTimeout(() => {
-            earth.style.display = 'inline-block';
-            earth.style.animation = 'scale-up 2s forwards';
             // Hide progress bar and button
             const progressContainer = document.getElementById('progress-container');
-            const button = document.querySelector('button');
+            const button = document.getElementById('btn-click-me');
+            const textKhoiDong = document.querySelector('.text-khoi-dong');
+            textKhoiDong.style.display = 'none';
             progressContainer.style.display = 'none';
             button.style.display = 'none';
             // audio2.play();
-        }, 1000);
+        }, 500);
 
-        setTimeout(() => {
-            document.querySelector('.earth').classList.add('rotate');
-        }, 2000);
+        // setTimeout(() => {
+        //     document.querySelector('.earth').classList.add('rotate');
+        // }, 2000);
 
         setTimeout(() => {
             title.style.display = 'block';
             title.style.animation = 'scale-up 2s forwards';
-            earth.style.display = 'none';
-        }, 5500);
+            // earth.style.display = 'none';
+        }, 600);
     }
 }
 
