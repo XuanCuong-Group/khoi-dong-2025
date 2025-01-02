@@ -26,16 +26,20 @@
 
         .logo {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .logo img {
-            width: 250px;
+            width: 120px;
+        }
+
+        .logo .text-khoi-dong img {
+            width: 320px;
         }
 
         .content .slogan img {
             width: 100%;
-            margin-top: -200px;
+            margin-top: -220px;
         }
 
         .content-title {
@@ -72,7 +76,7 @@
 
         #progress-container {
             height: 80px;
-            width: 950px;
+            width: 1200px;
             border: 1px solid #e5ea67;
             position: relative;
             overflow: hidden;
@@ -97,9 +101,15 @@
             transform: translateX(-50%);
             font-size: 26px;
             color: #fff;
-            font-weight: normal;
+            /* Giữ màu chữ trắng */
+            font-weight: bold;
             font-family: 'Ethnocentric Rg', sans-serif;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 1),
+                /* Bóng đậm màu đen */
+                0px 0px 15px rgba(255, 255, 255, 0.7);
+            /* Hiệu ứng ánh sáng mạnh hơn */
         }
+
 
         .rotate {
             animation: spin 30s linear infinite !important;
@@ -138,6 +148,97 @@
                 top: 200px;
             }
         }
+
+        .energy-beam {
+            position: fixed;
+            bottom: 0;
+            width: 5px;
+            height: 300px;
+            background: linear-gradient(to top, rgba(255, 255, 0, 0), rgba(255, 255, 0, 1));
+            opacity: 0.8;
+            animation: energyRise 1.2s linear forwards;
+            /* Bay nhanh trong 1.5 giây */
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        @keyframes energyRise {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+                /* Đạt độ sáng cao nhất ở 30% */
+            }
+
+            100% {
+                transform: translateY(-200%);
+                /* Bay lên xa hơn */
+                opacity: 0;
+                /* Mờ dần khi kết thúc */
+            }
+        }
+
+
+        .radial-burst {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 0, 1) 0%, rgba(255, 0, 0, 0) 70%);
+            border-radius: 50%;
+            animation: burst 0.6s ease-out forwards;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes burst {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Hiệu ứng tia sáng */
+        .energy-beam-special {
+            position: fixed;
+            bottom: 0;
+            width: 5px;
+            height: 600px;
+            background: linear-gradient(to top, rgba(255, 255, 0, 0), rgba(255, 255, 0, 1));
+            opacity: 0.8;
+            animation: waveRise 3s ease-in-out forwards;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        /* Hiệu ứng uốn lượn và bay lên */
+        @keyframes waveRise {
+            0% {
+                transform: translateX(0) translateY(100%);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+                /* Đạt độ sáng tối đa */
+            }
+
+            100% {
+                transform: translateX(calc(50px * sin(var(--random-wave)))) translateY(-200%);
+                opacity: 0;
+                /* Mờ dần khi kết thúc */
+            }
+        }
     </style>
 </head>
 
@@ -168,15 +269,10 @@
             </div>
 
         </div>
+
     </div>
 
-    <!-- <audio id="audio-1" preload="none" tabindex="0">
-        <source src="https://sconnect.com.vn/wp-content/uploads/2024/01/Nhac-1.mp3" />
-    </audio>
-    <audio id="audio-2" preload="none" tabindex="0">
-        <source
-            src="https://sconnect.com.vn/wp-content/uploads/2023/12/y2mate.com-CHO-EM-MOT-LAN-YEU-Hoang-Duyen-MELODI-Show-Tap-2_320kbps.mp3" />
-    </audio> -->
+    <audio id="energy-sound" src="./audio/mucsic-click.mp3" preload="auto"></audio>
 
     <script src="./js/index.js"></script>
 </body>
