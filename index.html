@@ -386,6 +386,7 @@
     </div>
 
     <audio id="energy-sound" src="./audio/mucsic-click.mp3" preload="auto"></audio>
+    <audio id="energy-sound-final" src="./audio/final.mp3" preload="auto"></audio>
 
     <!-- <script src="./js/index.js"></script> -->
     <script>
@@ -397,6 +398,7 @@
             const title = document.querySelector('.content-title');
             let percent = document.querySelector('.percent');
             const audio = document.getElementById('energy-sound'); // Âm thanh
+            const audioFinal = document.getElementById('energy-sound-final'); // Âm thanh final
 
             // Phát âm thanh khi nhấn nút
             audio.currentTime = 5; // Bắt đầu từ giây thứ 5
@@ -428,6 +430,7 @@
                     // Hiển thị slogan
                     title.style.display = 'block';
                     title.style.animation = 'scale-up 2s forwards';
+                    audioFinal.play();
                 }, 3800);
             }
         }
