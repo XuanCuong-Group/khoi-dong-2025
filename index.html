@@ -216,7 +216,7 @@
             height: 600px;
             background: linear-gradient(to top, rgba(255, 255, 0, 0), rgba(255, 255, 0, 1));
             opacity: 0.8;
-            animation: waveRise 3s ease-in-out forwards;
+            animation: waveRise 3.5s ease-in-out forwards;
             z-index: 9999;
             pointer-events: none;
         }
@@ -237,6 +237,119 @@
                 transform: translateX(calc(50px * sin(var(--random-wave)))) translateY(-200%);
                 opacity: 0;
                 /* Mờ dần khi kết thúc */
+            }
+        }
+
+        .circular-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 0, 0.8) 0%, rgba(255, 255, 0, 0.6) 70%, rgba(255, 255, 0, 0.3) 90%);
+            border-radius: 50%;
+            z-index: 9999;
+            animation: circularGlowEffect 3s linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes circularGlowEffect {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+                background: radial-gradient(circle, rgba(255, 255, 0, 0.8) 0%, rgba(255, 255, 0, 0.6) 70%, rgba(255, 255, 0, 0.3) 90%);
+            }
+
+            30% {
+                width: 500px;
+                height: 500px;
+                opacity: 0.9;
+                background: radial-gradient(circle, rgba(255, 255, 0, 0.8) 0%, rgba(255, 255, 0, 0.6) 70%, rgba(255, 255, 0, 0.3) 90%);
+            }
+
+            60% {
+                width: 2000px;
+                height: 2000px;
+                opacity: 0.7;
+                background: radial-gradient(circle, rgba(255, 255, 0, 0.7) 0%, rgba(255, 255, 0, 0.5) 70%, rgba(255, 255, 0, 0.2) 90%);
+            }
+
+            100% {
+                width: 3000px;
+                height: 3000px;
+                opacity: 0.5;
+                background: radial-gradient(circle, rgba(255, 255, 0, 0.6) 0%, rgba(255, 255, 0, 0.4) 70%, rgba(255, 255, 0, 0.1) 90%);
+            }
+        }
+
+        .energy-explosion {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 223, 0, 1) 0%, rgba(255, 223, 0, 0.8) 50%, rgba(255, 223, 0, 0) 100%);
+            border-radius: 50%;
+            z-index: 9999;
+            animation: energyExplosion 4s linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes energyExplosion {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+
+            20% {
+                width: 800px;
+                height: 800px;
+                opacity: 1;
+            }
+
+            50% {
+                width: 2000px;
+                height: 2000px;
+                opacity: 0.8;
+            }
+
+            80% {
+                width: 4000px;
+                height: 4000px;
+                opacity: 0.5;
+            }
+
+            100% {
+                width: 6000px;
+                height: 6000px;
+                opacity: 0;
+            }
+        }
+
+        .screen-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 200, 0.9);
+            /* Màu vàng nhạt */
+            z-index: 10000;
+            animation: flashEffect 1.5s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes flashEffect {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
             }
         }
     </style>
@@ -274,7 +387,140 @@
 
     <audio id="energy-sound" src="./audio/mucsic-click.mp3" preload="auto"></audio>
 
-    <script src="./js/index.js"></script>
+    <!-- <script src="./js/index.js"></script> -->
+    <script>
+        let clickCount = 0;
+
+        function startProgressBar() {
+            clickCount++;
+            const progressBar = document.getElementById('progress-bar');
+            const title = document.querySelector('.content-title');
+            let percent = document.querySelector('.percent');
+            const audio = document.getElementById('energy-sound'); // Âm thanh
+
+            // Phát âm thanh khi nhấn nút
+            audio.currentTime = 5; // Bắt đầu từ giây thứ 5
+            audio.play();
+
+            if (clickCount < 12) {
+                // Thêm hiệu ứng sao băng
+                createRadialBurst();
+                createEnergyBeams();
+                const progressPercentage = clickCount * 9;
+                progressBar.style.width = `${progressPercentage}%`;
+                percent.innerText = `${roundNumber(progressPercentage)}%`;
+            } else if (clickCount === 12) {
+                progressBar.style.width = '100%';
+                percent.innerText = '100%';
+
+                // createCircularGlow();
+                createSpecialEnergyBeams();
+                triggerEnergyExplosion();
+
+                setTimeout(() => {
+                    const progressContainer = document.getElementById('progress-container');
+                    const button = document.getElementById('btn-click-me');
+                    const textKhoiDong = document.querySelector('.text-khoi-dong');
+                    textKhoiDong.style.display = 'none';
+                    progressContainer.style.display = 'none';
+                    button.style.display = 'none';
+
+                    // Hiển thị slogan
+                    title.style.display = 'block';
+                    title.style.animation = 'scale-up 2s forwards';
+                }, 3800);
+            }
+        }
+
+        function triggerEnergyExplosion() {
+            // Hiệu ứng bùng nổ năng lượng
+            const explosion = document.createElement('div');
+            explosion.classList.add('energy-explosion');
+            document.body.appendChild(explosion);
+
+            // Hiệu ứng ánh sáng chớp trên toàn màn hình
+            const flash = document.createElement('div');
+            flash.classList.add('screen-flash');
+            document.body.appendChild(flash);
+
+            // Xóa hiệu ứng sau khi kết thúc
+            setTimeout(() => {
+                explosion.remove();
+                flash.remove();
+            }, 4000); // Thời gian khớp với animation
+        }
+
+        function createSpecialEnergyBeams() {
+            const numBeams = 100; // Số lượng tia sáng đặc biệt
+            for (let i = 0; i < numBeams; i++) {
+                const beam = document.createElement('div');
+                beam.classList.add('energy-beam-special');
+
+                // Vị trí ngẫu nhiên theo chiều ngang
+                beam.style.left = `${Math.random() * 100}vw`;
+
+                // Uốn lượn với giá trị ngẫu nhiên
+                beam.style.setProperty('--random-wave', `${Math.random() * 2 * Math.PI}`);
+
+                // Thêm tia sáng vào body
+                document.body.appendChild(beam);
+
+                // Xóa tia sáng sau khi hoàn thành hiệu ứng
+                setTimeout(() => {
+                    beam.remove();
+                }, 3500);
+            }
+        }
+
+        function createEnergyBeams() {
+            const numBeams = 20; // Số lượng tia sáng
+            for (let i = 0; i < numBeams; i++) {
+                const beam = document.createElement('div');
+                beam.classList.add('energy-beam');
+
+                // Vị trí ngẫu nhiên theo chiều ngang
+                beam.style.left = `${Math.random() * 100}vw`;
+
+                // Thêm tia sáng vào body
+                document.body.appendChild(beam);
+
+                // Xóa tia sáng sau khi hoàn thành hiệu ứng (tương ứng với thời gian animation 5s)
+                setTimeout(() => {
+                    beam.remove();
+                }, 5000); // Thời gian dài hơn để tia sáng tồn tại lâu hơn
+            }
+        }
+
+        function createRadialBurst() {
+            const burst = document.createElement('div');
+            burst.classList.add('radial-burst');
+            document.body.appendChild(burst);
+
+            // Xóa tia sáng sau khi hiệu ứng kết thúc
+            setTimeout(() => {
+                burst.remove();
+            }, 600);
+        }
+
+        function createCircularGlow() {
+            const glow = document.createElement('div');
+            glow.classList.add('circular-glow');
+            document.body.appendChild(glow);
+
+            // Xóa hiệu ứng sau khi animation kết thúc
+            setTimeout(() => {
+                glow.remove();
+            }, 3000); // Thời gian khớp với `animation` trong CSS
+        }
+
+        function roundNumber(value) {
+            if (Number.isInteger(value)) {
+                return value;
+            } else {
+                return value.toFixed(1);
+            }
+        }
+    </script>
 </body>
 
 </html>
